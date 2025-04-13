@@ -222,14 +222,15 @@ async function displayAlbums() {
                 const folder = href.split("/").filter(Boolean).pop();
 
                 try {
-                    const res = await fetch("songs/phonk/info.json")
+                    const res = await fetch(`${folder}/info.json`)
+
 
                     const data = await res.json();
 
                     cardContainer.innerHTML += `
                         <div data-folder="${folder}" class="card">
                             <div class="play"><i class="fa-solid fa-play"></i></div>
-                            <img src="/songs/${folder}/cover.jpg" alt="${data.title}">
+                            <img src="songs/${folder}/cover.jpg" alt="${data.title}">
                             <h2>${data.title}</h2>
                             <p class="font-size">${data.description}</p>
                         </div>`;
