@@ -1,0 +1,88 @@
+.border{
+    border:2px solid red;
+    margin: 3px;
+
+}
+
+.flex{
+    display: flex;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.align-center{
+    align-items: center;
+
+}
+
+/* .bg-black{
+    background-color: #121212;
+    
+} */
+
+.invert{
+    filter: invert(1);
+}
+
+.bg-grey{
+    background-color: #1f1f1f;
+}
+
+
+.rounded{
+    border-radius: 7px;
+}
+
+.m1{
+    margin: 5px;
+}
+
+.p1{
+    padding: 10px;
+}
+
+
+
+.play i{
+    margin-left: 0.5rem;
+    margin-top: 0.65rem;
+    margin-left: 0.75rem;
+    color: black;
+    
+}
+
+/* Apply scrollbar styles to the entire website */
+::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #1e1e1e; /* Dark background for the scrollbar track */
+    border-radius: 10px; /* Rounded edges */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #575757; /* Gray thumb for the scrollbar */
+    border-radius: 10px; /* Rounded edges for the thumb */
+    border: 2px solid #1e1e1e; /* Adds padding to the thumb */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #757575; /* Lighter gray when hovered */
+  }
+  
+  /* Firefox-specific styles */
+  html {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #575757 #1e1e1e; /* Thumb and track colors */
+  }
+
+  /* .word{
+    font-size: 3rem;
+
+  } */
+
+  
+  
