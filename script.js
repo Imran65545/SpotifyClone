@@ -224,11 +224,11 @@ async function displayAlbums() {
         for (let anchor of anchors) {
             const href = anchor.getAttribute("href");
 
-            if (href && href.startsWith("/songs/")) {
+            if (href && href.startsWith("songs/")) {
                 const folder = href.split("/").filter(Boolean).pop();
 
                 try {
-                    const res = await fetch(`/songs/${folder}/info.json`);
+                    const res = await fetch(`songs/${folder}/info.json`);
                     const info = await res.json();
 
                     const card = document.createElement("div");
@@ -236,7 +236,7 @@ async function displayAlbums() {
                     card.setAttribute("data-folder", folder);
 
                     card.innerHTML = `
-                        <img src="/songs/${folder}/cover.jpg" alt="${info.title}" />
+                        <img src="songs/${folder}/cover.jpg" alt="${info.title}" />
                         <h3>${info.title}</h3>
                         <p>${info.description}</p>
                     `;
