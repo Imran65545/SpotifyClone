@@ -30,7 +30,8 @@ function formatTime(seconds) {
 
 async function getSongs(folder) {
     currFolder = folder;
-    let response = await fetch(`${folder}/`);
+    const response = await fetch(`${folder}/`);
+
 
     let text = await response.text();
     let div = document.createElement("div");
@@ -192,15 +193,21 @@ async function getSongs(folder) {
 
 
   // ✅ Fix Album Card Clicks
-function setupAlbumCardClicks() {
-    Array.from(document.getElementsByClassName("card")).forEach(card => {
+  function setupAlbumCardClicks() {
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
         card.addEventListener("click", async () => {
-            const folder = card.dataset.folder;
-            assignCoverPhotos(folder);
-            await getSongs(`songs/${folder}`);
+            const folder = card.getAttribute("data-folder");
+            if (folder) {
+                assignCoverPhotos(folder); // Set proper covers
+                await getSongs(`songs/${folder}`); // Correct path
+            }
         });
     });
 }
+
+
 
 // ✅ Updated displayAlbums (calls setupAlbumCardClicks)
 async function displayAlbums() {
@@ -212,8 +219,7 @@ async function displayAlbums() {
 
         const anchors = tempDiv.getElementsByTagName("a");
         const cardContainer = document.querySelector(".card-container");
-
-        cardContainer.innerHTML = ""; // Clear existing cards if reloading
+        cardContainer.innerHTML = ""; // Clear existing cards
 
         for (let anchor of anchors) {
             const href = anchor.getAttribute("href");
@@ -222,29 +228,32 @@ async function displayAlbums() {
                 const folder = href.split("/").filter(Boolean).pop();
 
                 try {
-                    const res = await fetch(`${folder}/info.json`)
+                    const res = await fetch(`/songs/${folder}/info.json`);
+                    const info = await res.json();
 
+                    const card = document.createElement("div");
+                    card.className = "card";
+                    card.setAttribute("data-folder", folder);
 
-                    const data = await res.json();
+                    card.innerHTML = `
+                        <img src="/songs/${folder}/cover.jpg" alt="${info.title}" />
+                        <h3>${info.title}</h3>
+                        <p>${info.description}</p>
+                    `;
 
-                    cardContainer.innerHTML += `
-                        <div data-folder="${folder}" class="card">
-                            <div class="play"><i class="fa-solid fa-play"></i></div>
-                            <img src="songs/${folder}/cover.jpg" alt="${data.title}">
-                            <h2>${data.title}</h2>
-                            <p class="font-size">${data.description}</p>
-                        </div>`;
+                    cardContainer.appendChild(card);
                 } catch (err) {
-                    console.error(`Failed to fetch info.json for ${folder}:`, err);
+                    console.error(`Error loading info for ${folder}:`, err);
                 }
             }
         }
 
-        setupAlbumCardClicks(); // Attach event listeners to album cards
-    } catch (error) {
-        console.error("Failed to fetch albums:", error);
+        setupAlbumCardClicks(); // Setup click events after cards are added
+    } catch (err) {
+        console.error("Error displaying albums:", err);
     }
 }
+
 
   async function main() {
     // List of songs
