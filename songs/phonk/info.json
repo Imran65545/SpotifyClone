@@ -3,7 +3,6 @@
     "description": "Best Phonk Songs For You by Spotify",
     "songs": [
       { "filename": "brodyaga_funk.mp3", "title": "Brodyaga Funk" },
-      { "filename": "cover.mp3", "title": "Cover" },
       { "filename": "Empire By Ogryzek.mp3", "title": "Empire" },
       { "filename": "Funk-Do-Bounce.mp3", "title": "Funk Do Bounce" },
       { "filename": "Glory Slowed Mp3.mp3", "title": "Glory (Slowed)" },
