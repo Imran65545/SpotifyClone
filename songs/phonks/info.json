@@ -1,4 +1,13 @@
 {
-    "title": "MyPhonks",
-    "description": "Best Phonk Songs For You by Spotify"
+    "title": "MyPhonk",
+    "description": "Best Phonk Songs For You by Spotify",
+    "songs": [ { "filename": "aura.mp3", "title": "Aura" },
+    { "filename": "beeper_funk.mp3", "title": "Beeper Funk" },
+    { "filename": "cuando_se_te_moja.mp3", "title": "Cuando Se Te Moja" },
+    { "filename": "cute_depressed.mp3", "title": "Cute Depressed" },
+    { "filename": "Funk Estranho Ringtone.mp3", "title": "Funk Estranho" },
+    { "filename": "Happy Nation Full Song.mp3", "title": "Happy Nation" },
+    { "filename": "o_melhor_no_que_faz.mp3", "title": "O Melhor No Que Faz" },
+    { "filename": "treinamento_de_forca.mp3", "title": "Treinamento de Força" }
+  ]
 }
