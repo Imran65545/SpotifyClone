@@ -199,12 +199,11 @@ async function getSongs(folder) {
     cards.forEach(card => {
         card.addEventListener("click", async () => {
             const folder = card.getAttribute("data-folder");
-
-            console.log("Clicked folder:", folder); // ✅ ADD THIS HERE
+            console.log("Clicked folder:", folder);
 
             if (folder) {
-                assignCoverPhotos(folder); // Set proper covers
-                await getSongs(`/SpotifyClone/songs/${folder}`); // GitHub Pages path
+                assignCoverPhotos(folder);
+                await getSongs(`/SpotifyClone/songs/${folder}`);
             }
         });
     });
@@ -215,51 +214,32 @@ async function getSongs(folder) {
 
 // ✅ Updated displayAlbums (calls setupAlbumCardClicks)
 async function displayAlbums() {
-    try {
-        const response = await fetch(`/SpotifyClone/songs/`);
-        const text = await response.text();
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = text;
+    const folders = ["phonk", "phonks"]; // Manually list your album folders
+    const cardContainer = document.querySelector(".card-container");
+    cardContainer.innerHTML = ""; // Clear any existing cards
 
-        const anchors = tempDiv.getElementsByTagName("a");
-        const cardContainer = document.querySelector(".card-container");
-        cardContainer.innerHTML = ""; // Clear existing cards
+    for (let folder of folders) {
+        try {
+            const res = await fetch(`/SpotifyClone/songs/${folder}/info.json`);
+            const info = await res.json();
 
-        for (let anchor of anchors) {
-            const href = anchor.getAttribute("href");
+            const card = document.createElement("div");
+            card.className = "card";
+            card.setAttribute("data-folder", folder);
 
-            if (href && href.startsWith("/SpotifyClone/songs/"))
-                {
-                const folder = href.split("/").filter(Boolean).pop();
+            card.innerHTML = `
+                <img src="/SpotifyClone/songs/${folder}/cover.jpg" alt="${info.title}" />
+                <h3>${info.title}</h3>
+                <p>${info.description}</p>
+            `;
 
-                try {
-                    const res = await fetch(`/SpotifyClone/songs/${folder}/info.json`);
-
-                    const info = await res.json();
-
-                    const card = document.createElement("div");
-                    card.className = "card";
-                    card.setAttribute("data-folder", folder);
-                    console.log(folder);  // Check if it's the right folder name
-
-
-                    card.innerHTML = `
-                        <img src="/SpotifyClone/songs/${folder}/cover.jpg" alt="${info.title}" />
-                        <h3>${info.title}</h3>
-                        <p>${info.description}</p>
-                    `;
-
-                    cardContainer.appendChild(card);
-                } catch (err) {
-                    console.error(`Error loading info for ${folder}:`, err);
-                }
-            }
+            cardContainer.appendChild(card);
+        } catch (err) {
+            console.error(`Error loading info for ${folder}:`, err);
         }
-
-        setupAlbumCardClicks(); // Setup click events after cards are added
-    } catch (err) {
-        console.error("Error displaying albums:", err);
     }
+
+    setupAlbumCardClicks(); // Reattach click listeners after creating cards
 }
 
 
