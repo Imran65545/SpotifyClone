@@ -199,9 +199,12 @@ async function getSongs(folder) {
     cards.forEach(card => {
         card.addEventListener("click", async () => {
             const folder = card.getAttribute("data-folder");
+
+            console.log("Clicked folder:", folder); // ✅ ADD THIS HERE
+
             if (folder) {
                 assignCoverPhotos(folder); // Set proper covers
-                await getSongs(`songs/${folder}`); // Correct path
+                await getSongs(`/SpotifyClone/songs/${folder}`); // GitHub Pages path
             }
         });
     });
@@ -209,10 +212,11 @@ async function getSongs(folder) {
 
 
 
+
 // ✅ Updated displayAlbums (calls setupAlbumCardClicks)
 async function displayAlbums() {
     try {
-        const response = await fetch(`/songs/`);
+        const response = await fetch(`/SpotifyClone/songs/`);
         const text = await response.text();
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = text;
@@ -224,7 +228,8 @@ async function displayAlbums() {
         for (let anchor of anchors) {
             const href = anchor.getAttribute("href");
 
-            if (href && href.startsWith("/songs/")) {
+            if (href && href.startsWith("/SpotifyClone/songs/"))
+                {
                 const folder = href.split("/").filter(Boolean).pop();
 
                 try {
