@@ -246,7 +246,8 @@ async function displayAlbums() {
   async function main() {
     // List of songs
     await displayAlbums();  // Show the album cards first
-    await getSongs("songs/phonk");
+    await getSongs(`/SpotifyClone/songs/${folder}`);
+
       
     
     currentSong.addEventListener("ended", () => {
